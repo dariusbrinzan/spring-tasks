@@ -9,12 +9,14 @@ import java.util.Set;
 import java.util.HashSet;
 
 import com.luxoft.bankapp.exceptions.ClientExistsException;
+import com.luxoft.bankapp.domain.EmailService;
 import com.luxoft.bankapp.utils.ClientRegistrationListener;
 
 public class Bank {
 
     private final Set<Client> clients = new HashSet<>();
     private final List<ClientRegistrationListener> listeners = new ArrayList<>();
+    private final EmailService emailService = new EmailService();
 
     private int printedClients = 0;
     private int emailedClients = 0;
@@ -56,6 +58,10 @@ public class Bank {
         return Collections.unmodifiableSet(clients);
     }
 
+    public void close() {
+        emailService.close();
+    }
+
     class PrintClientListener implements ClientRegistrationListener {
         @Override
         public void onClientAdded(Client client) {
@@ -67,7 +73,14 @@ public class Bank {
     class EmailNotificationListener implements ClientRegistrationListener {
         @Override
         public void onClientAdded(Client client) {
-            System.out.println("Notification email for client " + client.getName() + " to be sent");
+            Email email = new Email(
+                    client,
+                    "bank@bank.com",
+                    client.getName().replace(" ", "").toLowerCase() + "@mail.com",
+                    "Welcome",
+                    "Hello " + client.getName()
+            );
+            emailService.sendNotificationEmail(email);
             emailedClients++;
         }
     }

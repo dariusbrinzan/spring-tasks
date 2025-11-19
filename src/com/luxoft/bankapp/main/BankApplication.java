@@ -28,6 +28,8 @@ public class BankApplication {
         } else {
             runNormalMode();
         }
+
+        bank.close();
     }
 
     private static void modifyBank() {
