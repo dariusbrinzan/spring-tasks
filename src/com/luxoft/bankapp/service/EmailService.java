@@ -1,6 +1,7 @@
-package com.luxoft.bankapp.domain;
+package com.luxoft.bankapp.service;
 
 import com.luxoft.bankapp.domain.Email;
+import com.luxoft.bankapp.domain.Queue;
 
 public class EmailService {
 

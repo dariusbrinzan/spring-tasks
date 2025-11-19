@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 import com.luxoft.bankapp.exceptions.ClientExistsException;
-import com.luxoft.bankapp.domain.EmailService;
+import com.luxoft.bankapp.service.EmailService;
 import com.luxoft.bankapp.utils.ClientRegistrationListener;
 
 public class Bank {
